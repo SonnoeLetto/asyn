@@ -29,23 +29,28 @@ const menu = {
     ],
 }
 
-function order(menuName, callback) {
+function order(menuName, orderResult) {
     console.log('Start cooking...');
-    
-    
     const result = [];
-        function cooking({ name, time }, numb) {
+    
+        getCookingResult = (name, index) => {
+            result[index] = name;
+
+            if (menuName.length === result.filter(Boolean).length) {
+                orderResult(result);
+            }
+        };
+
+
+        function cooking({ name, time }, index) {
             
-            callback(result[numb] = name);
             setTimeout(() => {
+                getCookingResult(name, index);
 
         }, time);
     };
 
     menuName.forEach(cooking); 
-    console.log(result)
 };
 
-const callback = () => {
-}
-order(menu.tako, callback)
+console.log(order(menu.tako, console.log));
